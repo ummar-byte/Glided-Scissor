@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, BellRing, CheckCircle2, Clock3, MapPin, Users, XCircle } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Badge, Button, Modal } from '../components/Ui'
+import { Badge, Button, Modal, Spinner } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
 import { ordinal } from '../i18n'
 import { canCancel, estimateWaitMinutes, formatClock, formatWait, positionOf, statusKey, tokenText, waitingTickets } from '../lib/queue'
@@ -9,12 +9,25 @@ import { playChime, vibrate } from '../lib/sound'
 
 export function Status() {
   const { id } = useParams()
-  const { data, t, lang, actions, notify } = useSalon()
+  const { data, loading, t, lang, actions, notify, refresh } = useSalon()
   const navigate = useNavigate()
   const ticket = data.tickets.find((item) => item.id === id)
   const [confirmCancel, setConfirmCancel] = useState(false)
   const [dismissedCall, setDismissedCall] = useState(false)
+  const [checking, setChecking] = useState(!ticket)
   const previousStatus = useRef(ticket?.status)
+
+  // A freshly created token reaches this tab through realtime a moment after navigation.
+  useEffect(() => {
+    if (ticket) { setChecking(false); return }
+    let cancelled = false
+    setChecking(true)
+    void refresh().finally(() => {
+      if (cancelled) return
+      window.setTimeout(() => { if (!cancelled) setChecking(false) }, 1500)
+    })
+    return () => { cancelled = true }
+  }, [ticket?.id, refresh])
 
   useEffect(() => {
     if (ticket && previousStatus.current !== 'called' && ticket.status === 'called') {
@@ -24,6 +37,8 @@ export function Status() {
     }
     previousStatus.current = ticket?.status
   }, [ticket?.status, ticket?.id])
+
+  if (!ticket && (loading || checking)) return <Spinner />
 
   if (!ticket) {
     return (
