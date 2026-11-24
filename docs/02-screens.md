@@ -1,7 +1,9 @@
 # Screens & Features
 
 All screens share the warm espresso + copper-gold theme, the EN/GU toggle in the top bar, and
-large tap targets. Empty and error states are described per screen.
+large tap targets. Service names, specialities and barber names all follow the selected
+language; barber names come from `name_gu` in the database with an English fallback.
+Empty and error states are described per screen.
 
 ---
 

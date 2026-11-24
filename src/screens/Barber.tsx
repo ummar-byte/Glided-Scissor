@@ -2,7 +2,7 @@ import { ArrowRightLeft, CheckCircle2, Clock3, UserRound } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Badge, Button, EmptyState, Toggle } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
-import { activeTickets, nextEligibleTicket, tokenText } from '../lib/queue'
+import { activeTickets, barberName, nextEligibleTicket, tokenText } from '../lib/queue'
 
 function elapsedMinutes(iso: string | null) {
   if (!iso) return 0
@@ -26,10 +26,10 @@ export function Barber() {
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-lg font-extrabold text-gold-soft">{barber.name[0]}</div>
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-lg font-extrabold text-gold-soft">{barberName(barber, lang)[0]}</div>
           <div>
             <h1 className="text-2xl font-extrabold sm:text-3xl"><span className="gold-text">{t('barber.title')}</span></h1>
-            <p className="text-sm text-slate-400">{barber.name} · {lang === 'gu' ? barber.speciality_gu : barber.speciality_en}</p>
+            <p className="text-sm text-slate-400">{barberName(barber, lang)} · {lang === 'gu' ? barber.speciality_gu : barber.speciality_en}</p>
           </div>
         </div>
         <Badge tone={barber.on_break ? 'amber' : 'green'}>{barber.on_break ? t('common.onBreak') : t('common.available')}</Badge>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { BellRing, Clock3, Scissors } from 'lucide-react'
 import { useSalon } from '../context/SalonContext'
-import { activeTickets, byJoinedAt, tokenText, waitingTickets } from '../lib/queue'
+import { activeTickets, barberName, byJoinedAt, tokenText, waitingTickets } from '../lib/queue'
 import { playChime } from '../lib/sound'
 
 function useClock() {
@@ -14,7 +14,7 @@ function useClock() {
 }
 
 export function Display() {
-  const { data, t } = useSalon()
+  const { data, t, lang } = useSalon()
   const clock = useClock()
   const called = activeTickets(data.tickets).filter((ticket) => ticket.status === 'called').sort(byJoinedAt)
   const latestCall = called[called.length - 1]
@@ -51,7 +51,7 @@ export function Display() {
       {latestCall && (
         <div className={`mt-6 rounded-3xl px-8 py-6 text-center text-charcoal transition-all ${flash ? 'flash-gold turn-pulse' : 'bg-gold/85'}`}>
           <p className="text-sm font-black uppercase tracking-[0.3em]">{t('display.called')}</p>
-          <p className="mt-1 text-5xl font-black sm:text-7xl">{tokenText(latestCall.token_no)} <span className="text-3xl sm:text-5xl">→ {data.barbers.find((b) => b.id === latestCall.assigned_barber)?.name ?? t('common.any')}</span></p>
+          <p className="mt-1 text-5xl font-black sm:text-7xl">{tokenText(latestCall.token_no)} <span className="text-3xl sm:text-5xl">→ {barberName(data.barbers.find((b) => b.id === latestCall.assigned_barber), lang) || t('common.any')}</span></p>
         </div>
       )}
 
@@ -67,9 +67,9 @@ export function Display() {
           return (
             <section key={barber.id} className="rounded-3xl border border-gold/20 bg-charcoal/45 p-6 sm:p-8">
               <div className="flex items-center gap-4 border-b border-slate-600/40 pb-5">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/40 bg-gold/10 text-2xl font-black text-gold-soft">{barber.name[0]}</div>
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/40 bg-gold/10 text-2xl font-black text-gold-soft">{barberName(barber, lang)[0]}</div>
                 <div>
-                  <p className="text-2xl font-extrabold sm:text-3xl">{barber.name}</p>
+                  <p className="text-2xl font-extrabold sm:text-3xl">{barberName(barber, lang)}</p>
                   <p className="text-xs uppercase tracking-widest text-slate-500">{barber.on_break ? t('common.onBreak') : t('common.available')}</p>
                 </div>
               </div>

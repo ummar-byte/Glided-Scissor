@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import type { Barber, Settings, Ticket, TicketStatus } from '../types'
 import {
-  barberIsFree, canCallNext, canCancel, estimateWaitMinutes, nextEligibleTicket,
+  barberIsFree, barberName, canCallNext, canCancel, estimateWaitMinutes, nextEligibleTicket,
   noShowWindowElapsed, onlineJoiningOpen, positionOf, queueStats, tokenText,
   validateName, validatePhone, waitingTickets,
 } from './queue'
 
 const barbers: Barber[] = [
-  { id: 'ravi', name: 'Ravi', speciality_en: 'Cuts', speciality_gu: 'કટ', active: true, on_break: false, sort_order: 1 },
-  { id: 'amit', name: 'Amit', speciality_en: 'Beards', speciality_gu: 'દાઢી', active: true, on_break: false, sort_order: 2 },
-  { id: 'imran', name: 'Imran', speciality_en: 'Colour', speciality_gu: 'રંગ', active: true, on_break: true, sort_order: 3 },
+  { id: 'ravi', name: 'Ravi', name_gu: 'રવિ', speciality_en: 'Cuts', speciality_gu: 'કટ', active: true, on_break: false, sort_order: 1 },
+  { id: 'amit', name: 'Amit', name_gu: 'અમિત', speciality_en: 'Beards', speciality_gu: 'દાઢી', active: true, on_break: false, sort_order: 2 },
+  { id: 'imran', name: 'Imran', name_gu: 'ઇમરાન', speciality_en: 'Colour', speciality_gu: 'રંગ', active: true, on_break: true, sort_order: 3 },
 ]
 
 function ticket(id: string, token_no: number, preference: string | null, status: TicketStatus, minutes = 30, joined = '2026-01-01T10:00:00Z', assigned: string | null = null): Ticket {
@@ -32,6 +32,18 @@ describe('tokens and validation', () => {
   it('validates names', () => {
     expect(validateName('A')).toBe(false)
     expect(validateName('Kunal')).toBe(true)
+  })
+})
+
+describe('localized barber names', () => {
+  it('shows the Gujarati name when language is Gujarati', () => {
+    expect(barberName(barbers[0], 'gu')).toBe('રવિ')
+    expect(barberName(barbers[1], 'gu')).toBe('અમિત')
+  })
+  it('shows the English name in English and when Gujarati is missing', () => {
+    expect(barberName(barbers[0], 'en')).toBe('Ravi')
+    expect(barberName({ ...barbers[0], name_gu: '' }, 'gu')).toBe('Ravi')
+    expect(barberName(undefined, 'gu')).toBe('')
   })
 })
 

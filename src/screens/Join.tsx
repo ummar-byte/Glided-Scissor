@@ -3,7 +3,7 @@ import { AlertCircle, Check, Clock3, Scissors, UserRound, Wallet } from 'lucide-
 import { Link, useNavigate } from 'react-router-dom'
 import { Badge, Button, Field } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
-import { activeTickets, estimateWaitMinutes, formatWait, onlineJoiningOpen, validateName, validatePhone, waitingTickets } from '../lib/queue'
+import { activeTickets, barberName, estimateWaitMinutes, formatWait, onlineJoiningOpen, validateName, validatePhone, waitingTickets } from '../lib/queue'
 import type { JoinInput } from '../types'
 
 export function Join() {
@@ -127,9 +127,9 @@ export function Join() {
             </button>
             {data.barbers.filter((b) => b.active).map((barber) => (
               <button type="button" key={barber.id} onClick={() => setBarberPreference(barber.id)} className={`card p-4 text-left ${barberPreference === barber.id ? 'card-selected' : 'hover:border-gold/35'}`}>
-                <p className="font-bold text-slate-100">{barber.name}</p>
+                <p className="font-bold text-slate-100">{barberName(barber, lang)}</p>
                 <p className="mt-1 text-xs text-slate-400">{lang === 'gu' ? barber.speciality_gu : barber.speciality_en}</p>
-                {barber.on_break && <p className="mt-2 text-[11px] text-amber-300">{barber.name} {t('join.breakWarning')}</p>}
+                {barber.on_break && <p className="mt-2 text-[11px] text-amber-300">{barberName(barber, lang)} {t('join.breakWarning')}</p>}
               </button>
             ))}
           </div>

@@ -16,6 +16,7 @@ create table if not exists public.services (
 create table if not exists public.barbers (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  name_gu text not null default '',
   speciality_en text not null default '',
   speciality_gu text not null default '',
   active boolean not null default true,
@@ -218,10 +219,10 @@ insert into public.services (id, name_en, name_gu, minutes, price, active, sort_
   ('00000000-0000-0000-0000-000000000006', 'Kids cut',  'બાળકોનો કટ',20, 120, true, 6)
 on conflict (id) do nothing;
 
-insert into public.barbers (id, name, speciality_en, speciality_gu, active, on_break, sort_order) values
-  ('10000000-0000-0000-0000-000000000001', 'Ravi',  'Classic cuts & fades', 'ક્લાસિક કટ અને ફેડ', true, false, 1),
-  ('10000000-0000-0000-0000-000000000002', 'Amit',  'Beards & styling',    'દાઢી અને સ્ટાઇલિંગ', true, false, 2),
-  ('10000000-0000-0000-0000-000000000003', 'Imran', 'Colour & hair spa',   'રંગ અને હેર સ્પા',   true, true,  3)
+insert into public.barbers (id, name, name_gu, speciality_en, speciality_gu, active, on_break, sort_order) values
+  ('10000000-0000-0000-0000-000000000001', 'Ravi',  'રવિ',   'Classic cuts & fades', 'ક્લાસિક કટ અને ફેડ', true, false, 1),
+  ('10000000-0000-0000-0000-000000000002', 'Amit',  'અમિત',  'Beards & styling',    'દાઢી અને સ્ટાઇલિંગ', true, false, 2),
+  ('10000000-0000-0000-0000-000000000003', 'Imran', 'ઇમરાન', 'Colour & hair spa',   'રંગ અને હેર સ્પા',   true, true,  3)
 on conflict (id) do nothing;
 
 insert into public.settings (id, queue_open, close_time, staff_pin) values (1, true, '21:00', '4821')

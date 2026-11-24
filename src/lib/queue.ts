@@ -1,9 +1,13 @@
-import type { Barber, Settings, Ticket, TicketStatus } from '../types'
+import type { Barber, Lang, Settings, Ticket, TicketStatus } from '../types'
 
 /** ALL queue rules live here and are reused by every screen. */
 export const ACTIVE_STATUSES: TicketStatus[] = ['waiting', 'called', 'in_chair']
 
 export const tokenText = (n: number) => `S-${n}`
+
+/** Barber names are stored in both languages; fall back to English if missing. */
+export const barberName = (barber: Barber | undefined, lang: Lang): string =>
+  barber ? (lang === 'gu' && barber.name_gu ? barber.name_gu : barber.name) : ''
 
 export const isActive = (t: Ticket) => ACTIVE_STATUSES.includes(t.status)
 

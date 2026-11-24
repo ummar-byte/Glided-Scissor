@@ -3,7 +3,7 @@ import { AlertTriangle, CheckCircle2, Clock3, Plus, Users } from 'lucide-react'
 import { Badge, Button, EmptyState, Field, Modal, StatCard } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
 import {
-  activeTickets, byJoinedAt, canCallNext, canCancel, canMarkNoShow,
+  activeTickets, barberName, byJoinedAt, canCallNext, canCancel, canMarkNoShow,
   formatClock, noShowWindowElapsed, statusKey, tokenText, waitingOver60, waitingTickets,
 } from '../lib/queue'
 import type { JoinInput, Ticket } from '../types'
@@ -24,9 +24,9 @@ function BarberCard({ barberId }: { barberId: string }) {
   return (
     <div className={`card flex flex-col gap-4 p-5 ${barber.on_break || !barber.active ? 'opacity-65' : ''}`}>
       <div className="flex items-center gap-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-lg font-extrabold text-gold-soft">{barber.name[0]}</div>
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-lg font-extrabold text-gold-soft">{barberName(barber, lang)[0]}</div>
         <div className="min-w-0">
-          <p className="truncate font-bold">{barber.name}</p>
+          <p className="truncate font-bold">{barberName(barber, lang)}</p>
           <Badge tone={!barber.active ? 'neutral' : barber.on_break ? 'amber' : current ? 'gold' : 'green'} className="!px-2 !py-0.5 !text-[10px]">
             {!barber.active ? t('common.off') : barber.on_break ? t('common.onBreak') : current ? t('common.busy') : t('common.free')}
           </Badge>
@@ -77,7 +77,7 @@ function WaitingRow({ ticket }: { ticket: Ticket }) {
           {ticket.source === 'walk_in' && <Badge tone="neutral">{t('join.walkIn')}</Badge>}
         </p>
         <p className="mt-1 text-xs text-slate-400">{ticket.services.map((s) => (lang === 'gu' ? s.name_gu : s.name_en)).join(' · ')}</p>
-        <p className="mt-1 text-xs text-slate-500">{barber?.name ?? t('common.any')} · {formatClock(ticket.joined_at, lang)} · {mins} {t('common.min')}</p>
+        <p className="mt-1 text-xs text-slate-500">{barber ? barberName(barber, lang) : t('common.any')} · {formatClock(ticket.joined_at, lang)} · {mins} {t('common.min')}</p>
       </div>
       <div className="flex gap-2">
         {canMarkNoShow(ticket) && (
@@ -94,7 +94,7 @@ function WaitingRow({ ticket }: { ticket: Ticket }) {
 }
 
 export function Reception() {
-  const { data, t, actions } = useSalon()
+  const { data, t, actions, lang } = useSalon()
   const [open, setOpen] = useState(false)
   const [form, setForm] = useState<JoinInput>({ customerName: '', phone: '', serviceIds: [], barberPreference: null, source: 'walk_in' })
   const [error, setError] = useState('')
@@ -170,7 +170,7 @@ export function Reception() {
             <div className="flex flex-wrap gap-2">
               {data.services.filter((s) => s.active).map((s) => {
                 const chosen = form.serviceIds.includes(s.id)
-                return <button type="button" key={s.id} onClick={() => setForm({ ...form, serviceIds: chosen ? form.serviceIds.filter((id) => id !== s.id) : [...form.serviceIds, s.id].slice(0, 3) })} className={`rounded-full border px-3 py-2 text-xs ${chosen ? 'border-gold bg-gold/15 text-gold-soft' : 'border-slate-500/40 text-slate-300'}`}>{s.name_en} · {s.minutes}m</button>
+                return <button type="button" key={s.id} onClick={() => setForm({ ...form, serviceIds: chosen ? form.serviceIds.filter((id) => id !== s.id) : [...form.serviceIds, s.id].slice(0, 3) })} className={`rounded-full border px-3 py-2 text-xs ${chosen ? 'border-gold bg-gold/15 text-gold-soft' : 'border-slate-500/40 text-slate-300'}`}>{lang === 'gu' ? s.name_gu : s.name_en} · {s.minutes}m</button>
               })}
             </div>
           </div>
@@ -178,7 +178,7 @@ export function Reception() {
             <p className="mb-2 text-sm font-semibold text-slate-300">{t('join.barber')}</p>
             <div className="flex flex-wrap gap-2">
               <button type="button" onClick={() => setForm({ ...form, barberPreference: null })} className={`rounded-full border px-3 py-2 text-xs ${form.barberPreference === null ? 'border-gold bg-gold/15 text-gold-soft' : 'border-slate-500/40 text-slate-300'}`}>{t('join.anyFastest')}</button>
-              {data.barbers.filter((b) => b.active && !b.on_break).map((b) => <button type="button" key={b.id} onClick={() => setForm({ ...form, barberPreference: b.id })} className={`rounded-full border px-3 py-2 text-xs ${form.barberPreference === b.id ? 'border-gold bg-gold/15 text-gold-soft' : 'border-slate-500/40 text-slate-300'}`}>{b.name}</button>)}
+              {data.barbers.filter((b) => b.active && !b.on_break).map((b) => <button type="button" key={b.id} onClick={() => setForm({ ...form, barberPreference: b.id })} className={`rounded-full border px-3 py-2 text-xs ${form.barberPreference === b.id ? 'border-gold bg-gold/15 text-gold-soft' : 'border-slate-500/40 text-slate-300'}`}>{barberName(b, lang)}</button>)}
             </div>
           </div>
           {error && <p className="text-xs text-red-300">{error}</p>}

@@ -25,6 +25,7 @@ export type ServiceSnapshot = Pick<Service, 'id' | 'name_en' | 'name_gu' | 'minu
 export interface Barber {
   id: string
   name: string
+  name_gu: string
   speciality_en: string
   speciality_gu: string
   active: boolean

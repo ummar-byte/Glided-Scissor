@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Badge, Button, EmptyState } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
 import { ordinal } from '../i18n'
-import { activeTickets, estimateWaitMinutes, formatWait, onlineJoiningOpen, positionOf, waitingTickets } from '../lib/queue'
+import { activeTickets, barberName, estimateWaitMinutes, formatWait, onlineJoiningOpen, positionOf, waitingTickets } from '../lib/queue'
 
 export function Home() {
   const { data, t, lang } = useSalon()
@@ -69,9 +69,9 @@ export function Home() {
               const label = !barber.active ? t('common.off') : barber.on_break ? t('common.onBreak') : serving ? t('common.busy') : t('common.free')
               return (
                 <div key={barber.id} className="card flex items-center gap-3 p-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-bold text-gold-soft">{barber.name[0]}</div>
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-bold text-gold-soft">{barberName(barber, lang)[0]}</div>
                   <div className="min-w-0">
-                    <p className="truncate font-bold text-slate-100">{barber.name}</p>
+                    <p className="truncate font-bold text-slate-100">{barberName(barber, lang)}</p>
                     <Badge tone={tone} className="mt-1 !px-2 !py-0.5 !text-[10px]">{label}</Badge>
                   </div>
                 </div>

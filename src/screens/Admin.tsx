@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Pencil, Plus, Settings2, Trash2 } from 'lucide-react'
 import { Badge, Button, EmptyState, Field, Modal, StatCard, Toggle } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
-import { queueStats } from '../lib/queue'
+import { barberName, queueStats } from '../lib/queue'
 import type { Service } from '../types'
 
 const blankService: Service = {
@@ -93,12 +93,12 @@ export function Admin() {
             {data.barbers.map((barber) => (
               <div key={barber.id} className="flex items-center justify-between gap-3 rounded-xl bg-charcoal-deep/50 p-4">
                 <div>
-                  <p className="font-bold">{barber.name}</p>
+                  <p className="font-bold">{barberName(barber, lang)}</p>
                   <p className="text-xs text-slate-400">{lang === 'gu' ? barber.speciality_gu : barber.speciality_en}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Badge tone={barber.on_break ? 'amber' : 'green'}>{barber.on_break ? t('common.onBreak') : t('common.available')}</Badge>
-                  <Toggle checked={barber.active} label={barber.name} onChange={(active) => void actions.saveBarber({ ...barber, active })} />
+                  <Toggle checked={barber.active} label={barberName(barber, lang)} onChange={(active) => void actions.saveBarber({ ...barber, active })} />
                 </div>
               </div>
             ))}

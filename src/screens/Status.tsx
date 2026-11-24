@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Badge, Button, Modal, Spinner } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
 import { ordinal } from '../i18n'
-import { canCancel, estimateWaitMinutes, formatClock, formatWait, positionOf, statusKey, tokenText, waitingTickets } from '../lib/queue'
+import { barberName, canCancel, estimateWaitMinutes, formatClock, formatWait, positionOf, statusKey, tokenText, waitingTickets } from '../lib/queue'
 import { playChime, vibrate } from '../lib/sound'
 
 export function Status() {
@@ -64,7 +64,7 @@ export function Status() {
           <BellRing size={52} className="mb-4 animate-bounce" />
           <p className="text-lg font-bold uppercase tracking-[0.3em]">{tokenText(ticket.token_no)}</p>
           <h1 className="mt-3 text-5xl font-black leading-tight sm:text-7xl">{t('my.itsYourTurn')}</h1>
-          <p className="mt-6 text-2xl font-extrabold sm:text-3xl">{t('my.goTo', { barber: barber?.name ?? preferred?.name ?? t('common.any') })}</p>
+          <p className="mt-6 text-2xl font-extrabold sm:text-3xl">{t('my.goTo', { barber: barberName(barber ?? preferred, lang) || t('common.any') })}</p>
           <button onClick={() => setDismissedCall(true)} className="mt-10 rounded-full border-2 border-charcoal/40 px-6 py-3 text-sm font-bold hover:bg-charcoal/10">{t('common.close')}</button>
         </div>
       )}
@@ -90,13 +90,13 @@ export function Status() {
 
           {ticket.status === 'called' && !calledOverlay && (
             <div className="flex items-center gap-3 rounded-2xl border border-gold/50 bg-gold/10 p-4 text-sm font-bold text-gold-soft">
-              <BellRing size={20} /> {t('my.goTo', { barber: barber?.name ?? t('common.any') })}
+              <BellRing size={20} /> {t('my.goTo', { barber: barberName(barber, lang) || t('common.any') })}
             </div>
           )}
 
           {ticket.status === 'in_chair' && (
             <div className="flex items-center gap-3 rounded-2xl border border-emerald-400/40 bg-emerald-500/10 p-4 text-sm font-semibold text-emerald-200">
-              <CheckCircle2 size={20} /> {t('my.inChair', { barber: barber?.name ?? t('common.any') })}
+              <CheckCircle2 size={20} /> {t('my.inChair', { barber: barberName(barber, lang) || t('common.any') })}
             </div>
           )}
 
@@ -117,7 +117,7 @@ export function Status() {
             <div className="rounded-2xl bg-charcoal-deep/60 p-4">
               <p className="text-sm font-bold text-slate-200">{ticket.customer_name}</p>
               <p className="mt-1 text-xs text-slate-400">{ticket.services.map((s) => (lang === 'gu' ? s.name_gu : s.name_en)).join(' · ')}</p>
-              <p className="mt-1 text-xs text-slate-400">{t('common.barber')}: {preferred?.name ?? t('common.any')}</p>
+              <p className="mt-1 text-xs text-slate-400">{t('common.barber')}: {preferred ? barberName(preferred, lang) : t('common.any')}</p>
               <p className="mt-1 text-xs text-slate-500">{t('my.joinedAt')} {formatClock(ticket.joined_at, lang)}</p>
             </div>
           </div>

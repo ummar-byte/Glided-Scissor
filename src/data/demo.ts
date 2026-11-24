@@ -14,9 +14,9 @@ const services: Service[] = [
 ]
 
 const barbers: Barber[] = [
-  { id: 'bar-ravi', name: 'Ravi', speciality_en: 'Classic cuts & fades', speciality_gu: 'ક્લાસિક કટ અને ફેડ', active: true, on_break: false, sort_order: 1 },
-  { id: 'bar-amit', name: 'Amit', speciality_en: 'Beards & styling', speciality_gu: 'દાઢી અને સ્ટાઇલિંગ', active: true, on_break: false, sort_order: 2 },
-  { id: 'bar-imran', name: 'Imran', speciality_en: 'Colour & hair spa', speciality_gu: 'રંગ અને હેર સ્પા', active: true, on_break: true, sort_order: 3 },
+  { id: 'bar-ravi', name: 'Ravi', name_gu: 'રવિ', speciality_en: 'Classic cuts & fades', speciality_gu: 'ક્લાસિક કટ અને ફેડ', active: true, on_break: false, sort_order: 1 },
+  { id: 'bar-amit', name: 'Amit', name_gu: 'અમિત', speciality_en: 'Beards & styling', speciality_gu: 'દાઢી અને સ્ટાઇલિંગ', active: true, on_break: false, sort_order: 2 },
+  { id: 'bar-imran', name: 'Imran', name_gu: 'ઇમરાન', speciality_en: 'Colour & hair spa', speciality_gu: 'રંગ અને હેર સ્પા', active: true, on_break: true, sort_order: 3 },
 ]
 
 const settings: Settings = { id: 1, queue_open: true, close_time: '21:00', staff_pin: '4821' }

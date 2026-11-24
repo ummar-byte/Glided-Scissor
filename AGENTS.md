@@ -23,6 +23,8 @@ queue; a TV displays the live state. This is a Vibe Coding Lab project.
 - Theme: warm espresso `#241A14` / `#3A2820` + copper-gold `#C8892F` / `#E7B76A`,
   cream text `#F5EEE4`; rounded cards; premium, human-feeling, mobile-first.
 - Every visible label goes through the EN/GU language file — no hard-coded text.
+  Barber names use `barberName(barber, lang)` from `src/lib/queue.ts` (with an English
+  fallback), because they live in the database rather than the language file.
 - Keep all queue rules in `src/lib/queue.ts` and reuse them everywhere.
 - Never add anything from the "Don't build" list (payments, appointments, SMS,
   loyalty, multiple branches).
