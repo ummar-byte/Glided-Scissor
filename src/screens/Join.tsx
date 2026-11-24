@@ -140,7 +140,7 @@ export function Join() {
           <div className="grid grid-cols-3 gap-3 text-center">
             <div><Clock3 size={16} className="mx-auto mb-1 text-gold" /><p className="text-lg font-extrabold">{totalMinutes} <span className="text-xs font-normal text-slate-400">{t('common.min')}</span></p><p className="text-[11px] text-slate-400">{t('join.totalTime')}</p></div>
             <div><Wallet size={16} className="mx-auto mb-1 text-gold" /><p className="text-lg font-extrabold">₹{totalPrice}</p><p className="text-[11px] text-slate-400">{t('join.totalPrice')}</p></div>
-            <div><Badge tone="gold" className="!text-xs">{formatWait(wait)}</Badge><p className="mt-2 text-[11px] text-slate-400">{t('join.expectedWait')}</p></div>
+            <div><Badge tone="gold" className="!text-xs">{formatWait(wait, lang)}</Badge><p className="mt-2 text-[11px] text-slate-400">{t('join.expectedWait')}</p></div>
           </div>
         </section>
 

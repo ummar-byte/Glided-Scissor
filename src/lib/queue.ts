@@ -82,11 +82,12 @@ export function waitingOver60(ticket: Ticket, now = new Date()): boolean {
   return now.getTime() - new Date(ticket.joined_at).getTime() > 60 * 60 * 1000
 }
 
-export function formatWait(minutes: number): string {
-  if (minutes <= 0) return 'any moment now'
-  if (minutes < 60) return `about ${minutes} min`
+export function formatWait(minutes: number, lang: 'en' | 'gu' = 'en'): string {
+  if (minutes <= 0) return lang === 'gu' ? 'હમણાં જ' : 'any moment now'
+  if (minutes < 60) return lang === 'gu' ? `લગભગ ${minutes} મિ.ન.` : `about ${minutes} min`
   const h = Math.floor(minutes / 60)
   const m = minutes % 60
+  if (lang === 'gu') return `લગભગ ${h} કલાક${m ? ` ${m} મિ.ન.` : ''}`
   return `about ${h} hr${m ? ` ${m} min` : ''}`
 }
 

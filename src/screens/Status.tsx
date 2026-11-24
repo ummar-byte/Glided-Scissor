@@ -111,7 +111,7 @@ export function Status() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl bg-charcoal-deep/60 p-4">
               <Clock3 size={18} className="mb-2 text-gold" />
-              <p className="text-2xl font-extrabold">{formatWait(wait)}</p>
+              <p className="text-2xl font-extrabold">{formatWait(wait, lang)}</p>
               <p className="text-xs text-slate-400">{t('my.waitEstimate')}</p>
             </div>
             <div className="rounded-2xl bg-charcoal-deep/60 p-4">

@@ -2,13 +2,15 @@ import { ArrowRight, Clock3, Scissors, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Badge, Button, EmptyState } from '../components/Ui'
 import { useSalon } from '../context/SalonContext'
+import { ordinal } from '../i18n'
 import { activeTickets, estimateWaitMinutes, formatWait, onlineJoiningOpen, positionOf, waitingTickets } from '../lib/queue'
 
 export function Home() {
-  const { data, t } = useSalon()
+  const { data, t, lang } = useSalon()
   const active = activeTickets(data.tickets)
   const waiting = waitingTickets(data.tickets)
   const wait = estimateWaitMinutes(null, data.tickets, data.barbers)
+  const waitLabel = formatWait(wait, lang)
   const canJoin = onlineJoiningOpen(data.settings)
   const myPhone = localStorage.getItem('salon-my-phone')
   const myTicket = myPhone ? active.find((ticket) => ticket.phone === myPhone) : undefined
@@ -35,7 +37,7 @@ export function Home() {
           </div>
           <div className="rounded-2xl border border-gold/20 bg-charcoal-deep/50 px-4 py-4">
             <Clock3 size={18} className="mx-auto mb-2 text-gold" />
-            <p className="text-2xl font-extrabold text-slate-100">{formatWait(wait).replace('about ', '')}</p>
+            <p className="text-2xl font-extrabold text-slate-100">{waitLabel}</p>
             <p className="text-xs text-slate-400">{t('my.waitEstimate')}</p>
           </div>
         </div>
@@ -49,7 +51,7 @@ export function Home() {
           {!canJoin && <p className="max-w-sm text-xs leading-relaxed text-amber-300/80">{t('home.closedNote')}</p>}
           {myTicket && (
             <Link to={`/status/${myTicket.id}`} className="btn-ghost px-5 py-2.5 text-sm">
-              {t('home.myStatus')} · S-{myTicket.token_no} · {positionOf(myTicket, data.tickets)}
+              {t('home.myStatus')} · S-{myTicket.token_no} · {ordinal(lang, positionOf(myTicket, data.tickets))}
             </Link>
           )}
         </div>
