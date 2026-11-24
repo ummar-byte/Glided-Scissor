@@ -36,7 +36,8 @@ Online payments or billing checkout, future-date appointments, SMS/WhatsApp
 notifications, loyalty points, membership logins, multiple branches, photo uploads.
 
 ## Look & feel
-Premium salon: dark charcoal `#1F2937`, gold `#D4A017`, clean rounded cards,
+Premium salon with a warm, human feel: espresso `#241A14` / `#3A2820`,
+copper-gold `#C8892F` / `#E7B76A`, cream text `#F5EEE4`, clean rounded cards,
 large touch targets (44px+), mobile-first; English and Gujarati labels.
 
 ## Definition of done

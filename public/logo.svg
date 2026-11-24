@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="The Gilded Scissor monogram">
+  <defs>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e7b76a"/>
+      <stop offset="0.55" stop-color="#c8892f"/>
+      <stop offset="1" stop-color="#a9671f"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2820"/>
+      <stop offset="1" stop-color="#241a14"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#plate)" stroke="url(#copper)" stroke-width="2"/>
+  <path d="M12 13h40" stroke="url(#copper)" stroke-opacity="0.35" stroke-width="1" stroke-linecap="round"/>
+  <text x="32" y="38" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="31" font-weight="700" letter-spacing="-2" fill="#f5eee4">GS</text>
+  <g fill="none" stroke="url(#copper)" stroke-width="2.4" stroke-linecap="round">
+    <path d="M25 45 38 57"/>
+    <path d="M39 45 26 57"/>
+    <circle cx="24" cy="58.5" r="2.6"/>
+    <circle cx="40" cy="58.5" r="2.6"/>
+  </g>
+  <circle cx="32" cy="48.4" r="1.5" fill="#f5eee4"/>
+</svg>

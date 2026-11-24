@@ -1,4 +1,4 @@
-import { CheckCircle2, Languages, LayoutDashboard, Home, Monitor, Scissors, ShieldCheck, XCircle } from 'lucide-react'
+import { CheckCircle2, Languages, LayoutDashboard, Home, Monitor, ShieldCheck, XCircle } from 'lucide-react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useSalon } from '../context/SalonContext'
 import { Spinner } from './Ui'
@@ -48,7 +48,7 @@ export function Layout() {
       <header className="sticky top-0 z-40 border-b border-gold/15 bg-charcoal-deep/85 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <Link to="/" className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/40 bg-gold/10 text-gold"><Scissors size={20} /></span>
+            <img src="/logo.svg" alt="" className="h-10 w-10 shrink-0 rounded-xl" />
             <span className="leading-tight">
               <span className="block text-sm font-extrabold tracking-wide text-gold-soft sm:text-base">{t('app.name')}</span>
               <span className="block text-[10px] uppercase tracking-[0.2em] text-slate-400">{t('app.tagline')}</span>

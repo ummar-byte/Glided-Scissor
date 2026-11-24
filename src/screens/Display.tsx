@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { BellRing, Clock3, MonitorPlay, Scissors } from 'lucide-react'
+import { BellRing, Clock3, Scissors } from 'lucide-react'
 import { useSalon } from '../context/SalonContext'
 import { activeTickets, byJoinedAt, tokenText, waitingTickets } from '../lib/queue'
 import { playChime } from '../lib/sound'
@@ -36,10 +36,10 @@ export function Display() {
   const serving = activeTickets(data.tickets).filter((ticket) => ['called', 'in_chair'].includes(ticket.status))
 
   return (
-    <div className="min-h-screen bg-[#0b0f17] px-6 py-6 text-slate-100 sm:px-10 lg:px-16">
+    <div className="min-h-screen bg-[#1a120e] px-6 py-6 text-slate-100 sm:px-10 lg:px-16">
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-gold/20 pb-5">
         <div className="flex items-center gap-4">
-          <MonitorPlay size={34} className="text-gold" />
+          <img src="/logo.svg" alt="" className="h-12 w-12 shrink-0 rounded-2xl sm:h-14 sm:w-14" />
           <div>
             <p className="text-xl font-extrabold tracking-wide text-gold-soft sm:text-2xl">{t('app.name')}</p>
             <p className="text-xs uppercase tracking-[0.35em] text-slate-500">{t('display.title')}</p>

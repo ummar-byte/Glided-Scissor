@@ -20,7 +20,8 @@ queue; a TV displays the live state. This is a Vibe Coding Lab project.
 
 ## How to work
 - Build **one screen or one feature per task**. Do not touch other screens.
-- Theme: charcoal `#1F2937` + gold `#D4A017`; rounded cards; premium, mobile-first.
+- Theme: warm espresso `#241A14` / `#3A2820` + copper-gold `#C8892F` / `#E7B76A`,
+  cream text `#F5EEE4`; rounded cards; premium, human-feeling, mobile-first.
 - Every visible label goes through the EN/GU language file — no hard-coded text.
 - Keep all queue rules in `src/lib/queue.ts` and reuse them everywhere.
 - Never add anything from the "Don't build" list (payments, appointments, SMS,

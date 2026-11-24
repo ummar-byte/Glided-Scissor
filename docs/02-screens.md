@@ -1,6 +1,6 @@
 # Screens & Features
 
-All screens share the charcoal + gold theme, the EN/GU toggle in the top bar, and
+All screens share the warm espresso + copper-gold theme, the EN/GU toggle in the top bar, and
 large tap targets. Empty and error states are described per screen.
 
 ---

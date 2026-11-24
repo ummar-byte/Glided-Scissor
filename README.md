@@ -1,6 +1,6 @@
 # Salon Queue — The Gilded Scissor
 
-**Live demo:** https://salon-queue-seven.vercel.app
+**Live demo:** https://gildedscissor.vercel.app
 
 **Staff test PIN:** `4821` (reception, barber, owner screens)
 
