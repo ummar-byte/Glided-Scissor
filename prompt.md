@@ -289,7 +289,8 @@ dimension without changing the queue rules.
 
 - Live URL: https://gildedscissor.vercel.app
 - Old URL: https://salon-queue-seven.vercel.app (returns 404)
-- Repo: https://github.com/ummar-byte/salon-queue (branch `master`)
+- Repo: https://github.com/ummar-byte/Glided-Scissor (branch `master`; renamed from
+  `salon-queue`, old GitHub URL redirects)
 - Local project folder: `/home/ummarbyte/Desktop/Projects/Glided Scissor`
 - Build: passing · Tests: 15/15 passing (including the 2 barber-name tests)
 - Barber names are localized in English/Gujarati on Home, Join, My Status, Reception,
